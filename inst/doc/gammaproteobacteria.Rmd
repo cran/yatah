@@ -1,0 +1,85 @@
+---
+title: "Taxonomy of _Gammaproteobacteria_"
+output: rmarkdown::html_vignette
+bibliography: references.bib
+link-citations: yes
+vignette: >
+  %\VignetteIndexEntry{Taxonomy_of_Gammaproteobacteria}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## Preliminaries
+
+This vignette illustrates the most useful functions of **yatah**. 
+
+```{r setup, message=FALSE}
+library(ggtree) # from Bioconductor
+library(dplyr)
+library(yatah)
+```
+
+## Data
+
+For this example, we use data from @zeller2014potential. It is the abundances of bacteria present in 199 stool samples.
+
+```{r}
+abundances <- as_tibble(yatah::abundances)
+print(abundances, n_extra = 2)
+```
+
+```{r data, message=FALSE}
+taxonomy <- select(abundances, lineages)
+taxonomy
+```
+
+## Filtering
+
+Here, we have all the present bacteria at all different ranks. As we are just interested in genera that belong to the _Gammaproteobacteria_ class, we `filter()` the lineages with `is_clade()` and `is_rank()`. The genus name is accessible with `last_clade()`.
+
+```{r filter}
+gammap_genus <-
+  taxonomy %>% 
+  filter(is_clade(lineages, "Gammaproteobacteria"),
+         is_rank(lineages, "genus")) %>% 
+  mutate(genus = last_clade(lineages))
+gammap_genus
+```
+
+## Taxonomic table
+
+It is useful to have a taxonomic table. `taxtable()` do the job.
+
+```{r table}
+gammaprot_table <-
+  gammap_genus %>% 
+  pull(lineages) %>% 
+  taxtable()
+as_tibble(gammaprot_table)
+```
+
+## Taxonomic tree
+
+To have a tree, use `taxtree()` with a taxonomic table in input. By default, it collapses ranks with only one subrank.
+
+```{r tree}
+gammaprot_tree <- taxtree(gammaprot_table)
+gammaprot_tree
+```
+
+Instead of a classical `plot`, we use **ggtree** (@ggtree2017) to display the tree. 
+
+```{r ggtree, fig.width=7, fig.height=7}
+ggtree(gammaprot_tree) +
+  geom_tiplab(hjust = 1, geom = "label") +
+  geom_nodelab(hjust = 0, size = 3)
+```
+
+## References
