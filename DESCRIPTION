@@ -1,6 +1,6 @@
 Package: yatah
 Title: Yet Another TAxonomy Handler
-Version: 0.0.1
+Version: 0.1.0
 Authors@R: 
     person(given = "Antoine",
            family = "Bichat",
@@ -18,14 +18,14 @@ Imports: ape, purrr, stats, stringr
 Suggests: dplyr, ggtree, knitr, rmarkdown, spelling, testthat (>=
         2.1.0)
 VignetteBuilder: knitr
-biocViews: curatedMetagenomicData, ggtree
+biocViews:
 Encoding: UTF-8
 Language: en-US
 LazyData: true
-RoxygenNote: 6.1.1
+RoxygenNote: 7.0.2.9000
 NeedsCompilation: no
-Packaged: 2019-06-25 12:12:22 UTC; antoinebichat
+Packaged: 2020-03-01 15:24:19 UTC; antoinebichat
 Author: Antoine Bichat [aut, cre] (<https://orcid.org/0000-0001-6599-7081>)
 Maintainer: Antoine Bichat <a.bichat@yahoo.fr>
 Repository: CRAN
-Date/Publication: 2019-06-28 13:00:04 UTC
+Date/Publication: 2020-03-01 15:50:02 UTC

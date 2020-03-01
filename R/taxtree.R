@@ -4,8 +4,10 @@
 #'
 #'
 #' @param table dataframe.
-#' @param collapse logical. Should node with one child be vanished? Default to TRUE.
-#' @param lineage_length double. Lineage length from the root to the leaves. Default to 1.
+#' @param collapse logical. Should node with one child be vanished? Default
+#' to TRUE.
+#' @param lineage_length double. Lineage length from the root to the leaves.
+#' Default to 1.
 #' @param root character. Name of the root if there is no natural root.
 #'
 #' @return A phylo object.
@@ -37,7 +39,7 @@ taxtree <- function(table, collapse = TRUE, lineage_length = 1, root = ""){
 
   ## Convert to data.frame with factor columns
 
-  table <- as.data.frame(apply(table, 2, as.factor))
+  table <- as.data.frame(apply(table, 2, as.factor), stringsAsFactors = TRUE)
 
   ## Number of ranks
 

@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 
 <head>
 
 <meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 
 
 
@@ -94,7 +94,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
       var style = rule.style.cssText;
       // check if color or background-color is set
-      if (rule.style.color === '' || rule.style.backgroundColor === '') continue;
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
       // replace div.sourceCode by a pre.sourceCode rule
       sheets[i].deleteRule(j);
       sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
@@ -115,9 +115,6 @@ padding-right: 2em;
 font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 font-size: 14px;
 line-height: 1.35;
-}
-#header {
-text-align: center;
 }
 #TOC {
 clear: both;
@@ -286,7 +283,8 @@ code > span.st { color: #d14; }
 code > span.co { color: #888888; font-style: italic; } 
 code > span.ot { color: #007020; } 
 code > span.al { color: #ff0000; font-weight: bold; } 
-code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61717; background-color: #e3d2d2; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
 </style>
 
 
@@ -316,20 +314,20 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">abundances &lt;-<span class="st"> </span><span class="kw">as_tibble</span>(yatah<span class="op">::</span>abundances)</a>
 <a class="sourceLine" id="cb2-2" data-line-number="2"><span class="kw">print</span>(abundances, <span class="dt">n_extra =</span> <span class="dv">2</span>)</a>
 <a class="sourceLine" id="cb2-3" data-line-number="3"><span class="co">#&gt; # A tibble: 1,585 x 200</span></a>
-<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="co">#&gt;    lineages `CCIS00146684ST… `CCIS00281083ST… `CCIS02124300ST…</span></a>
-<a class="sourceLine" id="cb2-5" data-line-number="5"><span class="co">#&gt;    &lt;chr&gt;               &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb2-6" data-line-number="6"><span class="co">#&gt;  1 k__Bact…        100.0             99.8               96.3  </span></a>
-<a class="sourceLine" id="cb2-7" data-line-number="7"><span class="co">#&gt;  2 k__Viru…          0.00697          0.128              3.70 </span></a>
-<a class="sourceLine" id="cb2-8" data-line-number="8"><span class="co">#&gt;  3 k__Bact…         66.2             24.6               74.2  </span></a>
-<a class="sourceLine" id="cb2-9" data-line-number="9"><span class="co">#&gt;  4 k__Bact…         19.1             74.4               11.9  </span></a>
-<a class="sourceLine" id="cb2-10" data-line-number="10"><span class="co">#&gt;  5 k__Bact…         12.1              0.0428             7.22 </span></a>
-<a class="sourceLine" id="cb2-11" data-line-number="11"><span class="co">#&gt;  6 k__Bact…          1.86             0.428              0.765</span></a>
-<a class="sourceLine" id="cb2-12" data-line-number="12"><span class="co">#&gt;  7 k__Bact…          0.758            0.388              2.28 </span></a>
-<a class="sourceLine" id="cb2-13" data-line-number="13"><span class="co">#&gt;  8 k__Viru…          0.00697          0.128              3.70 </span></a>
-<a class="sourceLine" id="cb2-14" data-line-number="14"><span class="co">#&gt;  9 k__Bact…          0.00155          0.00415            0    </span></a>
-<a class="sourceLine" id="cb2-15" data-line-number="15"><span class="co">#&gt; 10 k__Bact…         62.4             21.7               62.3  </span></a>
-<a class="sourceLine" id="cb2-16" data-line-number="16"><span class="co">#&gt; # … with 1,575 more rows, and 196 more variables:</span></a>
-<a class="sourceLine" id="cb2-17" data-line-number="17"><span class="co">#&gt; #   `CCIS02379307ST-4-0` &lt;dbl&gt;, `CCIS02856720ST-4-0` &lt;dbl&gt;, …</span></a></code></pre></div>
+<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="co">#&gt;    lineages `CCIS00146684ST… `CCIS00281083ST… `CCIS02124300ST… `CCIS02379307ST…</span></a>
+<a class="sourceLine" id="cb2-5" data-line-number="5"><span class="co">#&gt;    &lt;chr&gt;               &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;            &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb2-6" data-line-number="6"><span class="co">#&gt;  1 k__Bact…        100.              99.8               96.3           99.9    </span></a>
+<a class="sourceLine" id="cb2-7" data-line-number="7"><span class="co">#&gt;  2 k__Viru…          0.00697          0.128              3.70           0.00471</span></a>
+<a class="sourceLine" id="cb2-8" data-line-number="8"><span class="co">#&gt;  3 k__Bact…         66.2             24.6               74.2           45.1    </span></a>
+<a class="sourceLine" id="cb2-9" data-line-number="9"><span class="co">#&gt;  4 k__Bact…         19.1             74.4               11.9           53.0    </span></a>
+<a class="sourceLine" id="cb2-10" data-line-number="10"><span class="co">#&gt;  5 k__Bact…         12.1              0.0428             7.22           0.0788 </span></a>
+<a class="sourceLine" id="cb2-11" data-line-number="11"><span class="co">#&gt;  6 k__Bact…          1.86             0.428              0.765          0.361  </span></a>
+<a class="sourceLine" id="cb2-12" data-line-number="12"><span class="co">#&gt;  7 k__Bact…          0.758            0.388              2.28           0.985  </span></a>
+<a class="sourceLine" id="cb2-13" data-line-number="13"><span class="co">#&gt;  8 k__Viru…          0.00697          0.128              3.70           0.00471</span></a>
+<a class="sourceLine" id="cb2-14" data-line-number="14"><span class="co">#&gt;  9 k__Bact…          0.00155          0.00415            0              0      </span></a>
+<a class="sourceLine" id="cb2-15" data-line-number="15"><span class="co">#&gt; 10 k__Bact…         62.4             21.7               62.3           44.0    </span></a>
+<a class="sourceLine" id="cb2-16" data-line-number="16"><span class="co">#&gt; # … with 1,575 more rows, and 195 more variables: `CCIS02856720ST-4-0` &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb2-17" data-line-number="17"><span class="co">#&gt; #   `CCIS03473770ST-4-0` &lt;dbl&gt;, …</span></a></code></pre></div>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">taxonomy &lt;-<span class="st"> </span><span class="kw">select</span>(abundances, lineages)</a>
 <a class="sourceLine" id="cb3-2" data-line-number="2">taxonomy</a>
 <a class="sourceLine" id="cb3-3" data-line-number="3"><span class="co">#&gt; # A tibble: 1,585 x 1</span></a>
@@ -357,18 +355,18 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <a class="sourceLine" id="cb4-5" data-line-number="5"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">genus =</span> <span class="kw">last_clade</span>(lineages))</a>
 <a class="sourceLine" id="cb4-6" data-line-number="6">gammap_genus</a>
 <a class="sourceLine" id="cb4-7" data-line-number="7"><span class="co">#&gt; # A tibble: 26 x 2</span></a>
-<a class="sourceLine" id="cb4-8" data-line-number="8"><span class="co">#&gt;    lineages                                            genus               </span></a>
-<a class="sourceLine" id="cb4-9" data-line-number="9"><span class="co">#&gt;    &lt;chr&gt;                                               &lt;chr&gt;               </span></a>
-<a class="sourceLine" id="cb4-10" data-line-number="10"><span class="co">#&gt;  1 k__Bacteria|p__Proteobacteria|c__Gammaproteobacter… Escherichia         </span></a>
-<a class="sourceLine" id="cb4-11" data-line-number="11"><span class="co">#&gt;  2 k__Bacteria|p__Proteobacteria|c__Gammaproteobacter… Haemophilus         </span></a>
-<a class="sourceLine" id="cb4-12" data-line-number="12"><span class="co">#&gt;  3 k__Bacteria|p__Proteobacteria|c__Gammaproteobacter… Enterobacteriaceae_…</span></a>
-<a class="sourceLine" id="cb4-13" data-line-number="13"><span class="co">#&gt;  4 k__Bacteria|p__Proteobacteria|c__Gammaproteobacter… Pseudomonas         </span></a>
-<a class="sourceLine" id="cb4-14" data-line-number="14"><span class="co">#&gt;  5 k__Bacteria|p__Proteobacteria|c__Gammaproteobacter… Enterobacter        </span></a>
-<a class="sourceLine" id="cb4-15" data-line-number="15"><span class="co">#&gt;  6 k__Bacteria|p__Proteobacteria|c__Gammaproteobacter… Aggregatibacter     </span></a>
-<a class="sourceLine" id="cb4-16" data-line-number="16"><span class="co">#&gt;  7 k__Bacteria|p__Proteobacteria|c__Gammaproteobacter… Hafnia              </span></a>
-<a class="sourceLine" id="cb4-17" data-line-number="17"><span class="co">#&gt;  8 k__Bacteria|p__Proteobacteria|c__Gammaproteobacter… Actinobacillus      </span></a>
-<a class="sourceLine" id="cb4-18" data-line-number="18"><span class="co">#&gt;  9 k__Bacteria|p__Proteobacteria|c__Gammaproteobacter… Sinobacteraceae_unc…</span></a>
-<a class="sourceLine" id="cb4-19" data-line-number="19"><span class="co">#&gt; 10 k__Bacteria|p__Proteobacteria|c__Gammaproteobacter… Citrobacter         </span></a>
+<a class="sourceLine" id="cb4-8" data-line-number="8"><span class="co">#&gt;    lineages                                                 genus               </span></a>
+<a class="sourceLine" id="cb4-9" data-line-number="9"><span class="co">#&gt;    &lt;chr&gt;                                                    &lt;chr&gt;               </span></a>
+<a class="sourceLine" id="cb4-10" data-line-number="10"><span class="co">#&gt;  1 k__Bacteria|p__Proteobacteria|c__Gammaproteobacteria|o_… Escherichia         </span></a>
+<a class="sourceLine" id="cb4-11" data-line-number="11"><span class="co">#&gt;  2 k__Bacteria|p__Proteobacteria|c__Gammaproteobacteria|o_… Haemophilus         </span></a>
+<a class="sourceLine" id="cb4-12" data-line-number="12"><span class="co">#&gt;  3 k__Bacteria|p__Proteobacteria|c__Gammaproteobacteria|o_… Enterobacteriaceae_…</span></a>
+<a class="sourceLine" id="cb4-13" data-line-number="13"><span class="co">#&gt;  4 k__Bacteria|p__Proteobacteria|c__Gammaproteobacteria|o_… Pseudomonas         </span></a>
+<a class="sourceLine" id="cb4-14" data-line-number="14"><span class="co">#&gt;  5 k__Bacteria|p__Proteobacteria|c__Gammaproteobacteria|o_… Enterobacter        </span></a>
+<a class="sourceLine" id="cb4-15" data-line-number="15"><span class="co">#&gt;  6 k__Bacteria|p__Proteobacteria|c__Gammaproteobacteria|o_… Aggregatibacter     </span></a>
+<a class="sourceLine" id="cb4-16" data-line-number="16"><span class="co">#&gt;  7 k__Bacteria|p__Proteobacteria|c__Gammaproteobacteria|o_… Hafnia              </span></a>
+<a class="sourceLine" id="cb4-17" data-line-number="17"><span class="co">#&gt;  8 k__Bacteria|p__Proteobacteria|c__Gammaproteobacteria|o_… Actinobacillus      </span></a>
+<a class="sourceLine" id="cb4-18" data-line-number="18"><span class="co">#&gt;  9 k__Bacteria|p__Proteobacteria|c__Gammaproteobacteria|o_… Sinobacteraceae_unc…</span></a>
+<a class="sourceLine" id="cb4-19" data-line-number="19"><span class="co">#&gt; 10 k__Bacteria|p__Proteobacteria|c__Gammaproteobacteria|o_… Citrobacter         </span></a>
 <a class="sourceLine" id="cb4-20" data-line-number="20"><span class="co">#&gt; # … with 16 more rows</span></a></code></pre></div>
 </div>
 <div id="taxonomic-table" class="section level2">
@@ -380,18 +378,18 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <a class="sourceLine" id="cb5-4" data-line-number="4"><span class="st">  </span><span class="kw">taxtable</span>()</a>
 <a class="sourceLine" id="cb5-5" data-line-number="5"><span class="kw">as_tibble</span>(gammaprot_table)</a>
 <a class="sourceLine" id="cb5-6" data-line-number="6"><span class="co">#&gt; # A tibble: 26 x 6</span></a>
-<a class="sourceLine" id="cb5-7" data-line-number="7"><span class="co">#&gt;    kingdom  phylum     class        order       family      genus          </span></a>
-<a class="sourceLine" id="cb5-8" data-line-number="8"><span class="co">#&gt;    &lt;chr&gt;    &lt;chr&gt;      &lt;chr&gt;        &lt;chr&gt;       &lt;chr&gt;       &lt;chr&gt;          </span></a>
-<a class="sourceLine" id="cb5-9" data-line-number="9"><span class="co">#&gt;  1 Bacteria Proteobac… Gammaproteo… Enterobact… Enterobact… Escherichia    </span></a>
-<a class="sourceLine" id="cb5-10" data-line-number="10"><span class="co">#&gt;  2 Bacteria Proteobac… Gammaproteo… Pasteurell… Pasteurell… Haemophilus    </span></a>
-<a class="sourceLine" id="cb5-11" data-line-number="11"><span class="co">#&gt;  3 Bacteria Proteobac… Gammaproteo… Enterobact… Enterobact… Enterobacteria…</span></a>
-<a class="sourceLine" id="cb5-12" data-line-number="12"><span class="co">#&gt;  4 Bacteria Proteobac… Gammaproteo… Pseudomona… Pseudomona… Pseudomonas    </span></a>
-<a class="sourceLine" id="cb5-13" data-line-number="13"><span class="co">#&gt;  5 Bacteria Proteobac… Gammaproteo… Enterobact… Enterobact… Enterobacter   </span></a>
-<a class="sourceLine" id="cb5-14" data-line-number="14"><span class="co">#&gt;  6 Bacteria Proteobac… Gammaproteo… Pasteurell… Pasteurell… Aggregatibacter</span></a>
-<a class="sourceLine" id="cb5-15" data-line-number="15"><span class="co">#&gt;  7 Bacteria Proteobac… Gammaproteo… Enterobact… Enterobact… Hafnia         </span></a>
-<a class="sourceLine" id="cb5-16" data-line-number="16"><span class="co">#&gt;  8 Bacteria Proteobac… Gammaproteo… Pasteurell… Pasteurell… Actinobacillus </span></a>
-<a class="sourceLine" id="cb5-17" data-line-number="17"><span class="co">#&gt;  9 Bacteria Proteobac… Gammaproteo… Xanthomona… Sinobacter… Sinobacteracea…</span></a>
-<a class="sourceLine" id="cb5-18" data-line-number="18"><span class="co">#&gt; 10 Bacteria Proteobac… Gammaproteo… Enterobact… Enterobact… Citrobacter    </span></a>
+<a class="sourceLine" id="cb5-7" data-line-number="7"><span class="co">#&gt;    kingdom  phylum      class         order       family       genus            </span></a>
+<a class="sourceLine" id="cb5-8" data-line-number="8"><span class="co">#&gt;    &lt;chr&gt;    &lt;chr&gt;       &lt;chr&gt;         &lt;chr&gt;       &lt;chr&gt;        &lt;chr&gt;            </span></a>
+<a class="sourceLine" id="cb5-9" data-line-number="9"><span class="co">#&gt;  1 Bacteria Proteobact… Gammaproteob… Enterobact… Enterobacte… Escherichia      </span></a>
+<a class="sourceLine" id="cb5-10" data-line-number="10"><span class="co">#&gt;  2 Bacteria Proteobact… Gammaproteob… Pasteurell… Pasteurella… Haemophilus      </span></a>
+<a class="sourceLine" id="cb5-11" data-line-number="11"><span class="co">#&gt;  3 Bacteria Proteobact… Gammaproteob… Enterobact… Enterobacte… Enterobacteriace…</span></a>
+<a class="sourceLine" id="cb5-12" data-line-number="12"><span class="co">#&gt;  4 Bacteria Proteobact… Gammaproteob… Pseudomona… Pseudomonad… Pseudomonas      </span></a>
+<a class="sourceLine" id="cb5-13" data-line-number="13"><span class="co">#&gt;  5 Bacteria Proteobact… Gammaproteob… Enterobact… Enterobacte… Enterobacter     </span></a>
+<a class="sourceLine" id="cb5-14" data-line-number="14"><span class="co">#&gt;  6 Bacteria Proteobact… Gammaproteob… Pasteurell… Pasteurella… Aggregatibacter  </span></a>
+<a class="sourceLine" id="cb5-15" data-line-number="15"><span class="co">#&gt;  7 Bacteria Proteobact… Gammaproteob… Enterobact… Enterobacte… Hafnia           </span></a>
+<a class="sourceLine" id="cb5-16" data-line-number="16"><span class="co">#&gt;  8 Bacteria Proteobact… Gammaproteob… Pasteurell… Pasteurella… Actinobacillus   </span></a>
+<a class="sourceLine" id="cb5-17" data-line-number="17"><span class="co">#&gt;  9 Bacteria Proteobact… Gammaproteob… Xanthomona… Sinobactera… Sinobacteraceae_…</span></a>
+<a class="sourceLine" id="cb5-18" data-line-number="18"><span class="co">#&gt; 10 Bacteria Proteobact… Gammaproteob… Enterobact… Enterobacte… Citrobacter      </span></a>
 <a class="sourceLine" id="cb5-19" data-line-number="19"><span class="co">#&gt; # … with 16 more rows</span></a></code></pre></div>
 </div>
 <div id="taxonomic-tree" class="section level2">
@@ -426,6 +424,9 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 </div>
 </div>
 
+
+
+<!-- code folding -->
 
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
