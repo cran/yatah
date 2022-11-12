@@ -5,13 +5,12 @@ knitr::opts_chunk$set(
 )
 
 ## ----setup, message=FALSE-----------------------------------------------------
-library(ggtree) # from Bioconductor
 library(dplyr)
 library(yatah)
 
 ## -----------------------------------------------------------------------------
 abundances <- as_tibble(yatah::abundances)
-print(abundances, n_extra = 2)
+print(abundances, max_extra_cols = 2)
 
 ## ----data, message=FALSE------------------------------------------------------
 taxonomy <- select(abundances, lineages)
@@ -37,7 +36,6 @@ gammaprot_tree <- taxtree(gammaprot_table)
 gammaprot_tree
 
 ## ----ggtree, fig.width=7, fig.height=7----------------------------------------
-ggtree(gammaprot_tree) +
-  geom_tiplab(hjust = 1, geom = "label") +
-  geom_nodelab(hjust = 0, size = 3)
+plot(gammaprot_tree, show.node.label = TRUE, cex = 0.7, 
+     main = "Taxonomy of Gammaproteobacteria")
 

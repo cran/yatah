@@ -4,11 +4,13 @@
 \name{.ranks}
 \alias{.ranks}
 \title{Ranks}
-\format{An object of class \code{character} of length 8.}
+\format{
+An object of class \code{character} of length 8.
+}
 \usage{
 .ranks
 }
 \description{
 Named vector of ranks
 }
-\keyword{datasets}
+\keyword{internal}
