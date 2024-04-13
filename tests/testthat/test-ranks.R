@@ -29,6 +29,30 @@ test_that("is_rank() throws error when needed", {
   expect_error(is_rank(lineages, "OTUs"))
 })
 
+#### is_at_least_rank() ####
+
+test_that("is_at_least_rank() is correct", {
+  expect_equal(is_at_least_rank(lineages, "kingdom"),
+               c(TRUE, TRUE, TRUE, TRUE, TRUE))
+  expect_equal(is_at_least_rank(lineages, "class"),
+               c(TRUE, TRUE, TRUE, TRUE, FALSE))
+  expect_equal(is_at_least_rank(lineages, "order"),
+               c(FALSE, FALSE, TRUE, TRUE, FALSE))
+  expect_equal(is_at_least_rank(lineages, "sp"),
+               c(FALSE, FALSE, TRUE, TRUE, FALSE))
+  expect_equal(is_at_least_rank(lineages, "strain"),
+               c(FALSE, FALSE, FALSE, TRUE, FALSE))
+  options(yatah_sep = ";")
+  expect_equal(is_at_least_rank(lineagesbis, "class"), c(TRUE, TRUE))
+  expect_equal(is_at_least_rank(lineagesbis, "phylum"), c(TRUE, TRUE))
+  expect_equal(is_at_least_rank(lineagesbis, "genus"), c(FALSE, FALSE))
+  options(yatah_sep = "\\|")
+})
+
+test_that("is_at_least_rank() throws error when needed", {
+  expect_error(is_at_least_rank(lineages, "OTUs"))
+})
+
 
 #### is_clade() ####
 
@@ -54,65 +78,92 @@ test_that("is_clade() throws error when needed", {
 })
 
 
-#### last_clade() ####
+#### get_last_clade() ####
 
-test_that("last_clade() is correct", {
-  expect_equal(last_clade(lineages[1:2]),
+test_that("get_last_clade() is correct", {
+  expect_equal(get_last_clade(lineages[1:2]),
                c("Verrucomicrobiae", "Clostridia"))
   options(yatah_sep = ";")
-  expect_equal(last_clade(lineagesbis),
+  expect_equal(get_last_clade(lineagesbis),
                c("Verrucomicrobiae", "Clostridia"))
   options(yatah_sep = "\\|")
-  expect_equal(last_clade(lineages, same = FALSE),
+  expect_equal(get_last_clade(lineages, same = FALSE),
                c("Verrucomicrobiae", "Clostridia",
                  "Delftia_unclassified", "X_56Z", "Viruses"))
 })
 
-test_that("last_clade() throws error when needed", {
-  expect_error(last_clade(lineages, same = TRUE), errormessdepth)
+test_that("get_last_clade() throws error when needed", {
+  expect_error(get_last_clade(lineages, same = TRUE), errormessdepth)
+})
+
+#### get_clade() ####
+
+test_that("get_clade() is correct", {
+  expect_equal(get_clade(lineages[1:2], rank = "phylum"),
+               c("Verrucomicrobia", "Firmicutes"))
+  expect_equal(get_clade(lineages[1:2], rank = "class"),
+               c("Verrucomicrobiae", "Clostridia"))
+  options(yatah_sep = ";")
+  expect_equal(get_clade(lineagesbis, rank = "phylum"),
+               c("Verrucomicrobia", "Firmicutes"))
+  expect_equal(get_clade(lineagesbis, rank = "class"),
+               c("Verrucomicrobiae", "Clostridia"))
+  options(yatah_sep = "\\|")
+  expect_equal(get_clade(lineages, rank = "kingdom", same = FALSE),
+               c("Bacteria", "Bacteria",
+                 "Bacteria", "Bac", "Viruses"))
+  expect_equal(get_clade(lineages, rank = "class", same = FALSE),
+               c("Verrucomicrobiae", "Clostridia",
+                 "Betaproteobacteria", "Clos", NA))
+  expect_equal(get_clade(lineages, rank = "strain", same = FALSE),
+               c(NA, NA, NA, "X_56Z", NA))
+})
+
+test_that("get_clade() throws error when needed", {
+  expect_error(get_clade(lineages, same = TRUE), errormessdepth)
 })
 
 
-#### last_rank() ####
+#### get_last_rank() ####
 
-test_that("last_rank() is correct", {
-  expect_equal(last_rank(lineages[1:2]), c("class", "class"))
+test_that("get_last_rank() is correct", {
+  expect_equal(get_last_rank(lineages[1:2]), c("class", "class"))
   options(yatah_sep = ";")
-  expect_equal(last_rank(lineagesbis), c("class", "class"))
+  expect_equal(get_last_rank(lineagesbis), c("class", "class"))
   options(yatah_sep = "\\|")
-  expect_equal(last_rank(lineages, same = FALSE),
+  expect_equal(get_last_rank(lineages, same = FALSE),
                c("class", "class", "species", "strain", "kingdom"))
 })
 
-test_that("last_rank() throws error when needed", {
-  expect_error(last_rank(lineages, same = TRUE), errormessdepth)
+test_that("get_last_rank() throws error when needed", {
+  expect_error(get_last_rank(lineages, same = TRUE), errormessdepth)
 })
 
-#### all_clades() ####
+#### get_all_clades() ####
 
-test_that("all_clades() have the correct output format", {
-  expect_is(all_clades(lineages), "character")
-  expect_is(all_clades(lineages, simplify = FALSE), "data.frame")
-  expect_equal(dim(all_clades(lineages, simplify = FALSE)),
-               c(length(all_clades(lineages)), 2))
-  expect_equal(colnames(all_clades(lineages, simplify = FALSE)),
+test_that("get_all_clades() have the correct output format", {
+  expect_is(get_all_clades(lineages), "character")
+  expect_is(get_all_clades(lineages, simplify = FALSE), "data.frame")
+  expect_equal(dim(get_all_clades(lineages, simplify = FALSE)),
+               c(length(get_all_clades(lineages)), 2))
+  expect_equal(colnames(get_all_clades(lineages, simplify = FALSE)),
                c("clade", "rank"))
 })
 
-test_that("all_clades() is correct", {
-  expect_equal(all_clades(c(lineage1, lineage2)),
+test_that("get_all_clades() is correct", {
+  expect_equal(get_all_clades(c(lineage1, lineage2)),
                c("Bacteria", "Clostridia", "Firmicutes", "Verrucomicrobia",
                  "Verrucomicrobiae"))
-  expect_equal(all_clades(lineage5), "Viruses")
-  expect_equal(all_clades(c(lineage4, lineage5), simplify = FALSE)$clade,
+  expect_equal(get_all_clades(lineage5), "Viruses")
+  expect_equal(get_all_clades(c(lineage4, lineage5), simplify = FALSE)$clade,
                c("Bac", "Clos", "Clost", "Fir", "Rumi",
                  "Sub_su", "Subdo", "Viruses", "X_56Z"))
-  expect_equal(all_clades(c(lineage4, lineage5), simplify = FALSE)$rank,
+  expect_equal(get_all_clades(c(lineage4, lineage5), simplify = FALSE)$rank,
                c("kingdom", "class", "order", "phylum", "family",
                  "species", "genus", "kingdom", "strain"))
-  expect_equal(all_clades(lineage5), "Viruses")
-  temp_allclades <- all_clades(lineages[1:2])
+  expect_equal(get_all_clades(lineage5), "Viruses")
+  temp_allclades <- get_all_clades(lineages[1:2])
   options(yatah_sep = ";")
-  expect_equal(all_clades(lineagesbis), temp_allclades)
+  expect_equal(get_all_clades(lineagesbis), temp_allclades)
   options(yatah_sep = "\\|")
 })

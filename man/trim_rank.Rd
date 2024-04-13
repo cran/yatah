@@ -4,11 +4,7 @@
 \alias{trim_rank}
 \title{Trim lineages until a specified rank}
 \usage{
-trim_rank(
-  lineage,
-  rank = c("kingdom", "phylum", "class", "order", "family", "genus", "species", "strain"),
-  same = TRUE
-)
+trim_rank(lineage, rank = yatah::all_ranks, same = TRUE)
 }
 \arguments{
 \item{lineage}{string. Vector of lineages.}
@@ -16,7 +12,7 @@ trim_rank(
 \item{rank}{string. One of \code{c("kingdom", "phylum", "class",
 "order", "family", "genus", "species", "strain")} with partial matching.}
 
-\item{same}{logical. Does the lineage have the same depth? Default to TRUE.}
+\item{same}{logical. Does the lineage have the same depth? Default to \code{TRUE}.}
 }
 \value{
 The trimmed lineages. Depth could be different among them.

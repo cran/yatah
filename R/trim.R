@@ -3,7 +3,7 @@
 #' @details If there is a void rank amid a lineage, deeper ranks
 #' will be removed. See the example with \code{lineage3}.
 #'
-#' @inheritParams last_clade
+#' @inheritParams get_last_clade
 #' @param only_tail Logical. If \code{FALSE} (default), void ranks amid
 #' lineages and subranks are removed. If \code{TRUE}, only final
 #' void ranks are removed.
@@ -39,7 +39,7 @@ trim_void <- function(lineage, same = TRUE, only_tail = FALSE) {
 #'
 #' @details Returns \code{NA} if a lineage is not as deep as the specified rank.
 #'
-#' @inheritParams last_clade
+#' @inheritParams get_last_clade
 #' @inheritParams is_rank
 #'
 #' @return The trimmed lineages. Depth could be different among them.
@@ -50,9 +50,7 @@ trim_void <- function(lineage, same = TRUE, only_tail = FALSE) {
 #' lineage2 <- "k__Bacteria|p__Firmicutes|c__Clostridia"
 #' trim_rank(c(lineage1, lineage2), rank = "phylum")
 #' trim_rank(c(lineage1, lineage2), rank = "genus")
-trim_rank <- function(lineage, rank = c("kingdom", "phylum", "class",
-                                        "order", "family", "genus",
-                                        "species", "strain"), same = TRUE) {
+trim_rank <- function(lineage, rank = yatah::all_ranks, same = TRUE) {
 
   error_lineage(lineage)
 
@@ -72,7 +70,7 @@ trim_rank <- function(lineage, rank = c("kingdom", "phylum", "class",
 
 #' Trim lineages until the shallowest common rank.
 #'
-#' @inheritParams last_clade
+#' @inheritParams get_last_clade
 #' @param remove_void Should void ranks be removed? Default to `TRUE`.
 #' @param only_tail Logical to be passed to `trim_void()`. Used only if
 #' `remove_void` is set to `TRUE`.
@@ -94,7 +92,7 @@ trim_common <- function(lineage, remove_void = TRUE, only_tail = TRUE) {
   }
 
   # find shallowest common rank
-  lrs <- last_rank(lin, same = FALSE)
+  lrs <- get_last_rank(lin, same = FALSE)
   lrs <- factor(lrs, levels = .ranks, ordered = TRUE)
   lr <- as.character(min(lrs))
 

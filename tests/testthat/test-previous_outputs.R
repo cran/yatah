@@ -25,11 +25,11 @@ table2 <- taxtable(lineages2)
 tree2 <- taxtree(table2)
 
 test_that("outputs do not change over time for data 1", {
-  expect_known_value(last_clade(lineages1), "previous_outputs/last_clades1",
+  expect_known_value(get_last_clade(lineages1), "previous_outputs/last_clades1",
                      update = FALSE)
-  expect_known_value(all_clades(lineages1, simplify = TRUE),
+  expect_known_value(get_all_clades(lineages1, simplify = TRUE),
                      "previous_outputs/all_cladesT1", update = FALSE)
-  expect_known_value(all_clades(lineages1, simplify = FALSE),
+  expect_known_value(get_all_clades(lineages1, simplify = FALSE),
                      "previous_outputs/all_cladesF1", update = FALSE)
   expect_known_value(table1, "previous_outputs/taxtable1", update = FALSE)
   # Test components of the tree
@@ -44,11 +44,11 @@ test_that("outputs do not change over time for data 1", {
 })
 
 test_that("outputs do not change over time for data 2", {
-  expect_known_value(last_clade(lineages2), "previous_outputs/last_clades2",
+  expect_known_value(get_last_clade(lineages2), "previous_outputs/last_clades2",
                      update = FALSE)
-  expect_known_value(all_clades(lineages2, simplify = TRUE),
+  expect_known_value(get_all_clades(lineages2, simplify = TRUE),
                      "previous_outputs/all_cladesT2", update = FALSE)
-  expect_known_value(all_clades(lineages2, simplify = FALSE),
+  expect_known_value(get_all_clades(lineages2, simplify = FALSE),
                      "previous_outputs/all_cladesF2", update = FALSE)
   expect_known_value(table2, "previous_outputs/taxtable2", update = FALSE)
   # Test components of the tree

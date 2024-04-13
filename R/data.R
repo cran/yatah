@@ -14,3 +14,11 @@
 #' dim(abundances)
 #' abundances[1:5, 1:7]
 "abundances"
+
+#' Ranks handled by `yatah`
+#'
+#' @keywords datasets
+#' @examples
+#' all_ranks
+"all_ranks"
+

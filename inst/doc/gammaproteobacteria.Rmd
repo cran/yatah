@@ -4,7 +4,7 @@ output: rmarkdown::html_vignette
 bibliography: references.bib
 link-citations: yes
 vignette: >
-  %\VignetteIndexEntry{Taxonomy_of_Gammaproteobacteria}
+  %\VignetteIndexEntry{Taxonomy of Gammaproteobacteria}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -41,14 +41,14 @@ taxonomy
 
 ## Filtering
 
-Here, we have all the present bacteria at all different ranks. As we are just interested in genera that belong to the _Gammaproteobacteria_ class, we `filter()` the lineages with `is_clade()` and `is_rank()`. The genus name is accessible with `last_clade()`.
+Here, we have all the present bacteria at all different ranks. As we are just interested in genera that belong to the _Gammaproteobacteria_ class, we `filter()` the lineages with `is_clade()` and `is_rank()`. The genus name is accessible with `get_last_clade()`.
 
 ```{r filter}
 gammap_genus <-
   taxonomy %>% 
   filter(is_clade(lineages, "Gammaproteobacteria"),
          is_rank(lineages, "genus")) %>% 
-  mutate(genus = last_clade(lineages))
+  mutate(genus = get_last_clade(lineages))
 gammap_genus
 ```
 

@@ -1,8 +1,10 @@
 Actinobacteria
 CMD
 Gammaproteobacteria
+Lifecycle
 ORCID
 Pasolli
+Roxygen
 TAxonomy
 Zeller
 al
@@ -13,7 +15,6 @@ et
 https
 img
 io
-lifecycle
 packageversion
 phylo
 subrank

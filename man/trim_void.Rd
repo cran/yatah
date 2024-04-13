@@ -9,7 +9,7 @@ trim_void(lineage, same = TRUE, only_tail = FALSE)
 \arguments{
 \item{lineage}{string. Vector of lineages.}
 
-\item{same}{logical. Does the lineage have the same depth? Default to TRUE.}
+\item{same}{logical. Does the lineage have the same depth? Default to \code{TRUE}.}
 
 \item{only_tail}{Logical. If \code{FALSE} (default), void ranks amid
 lineages and subranks are removed. If \code{TRUE}, only final

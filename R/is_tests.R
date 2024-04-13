@@ -40,7 +40,7 @@ is_lineage <- function(string){
 #' "order", "family", "genus", "species", "strain")} with partial matching.
 #'
 #' @return logical.
-#' @importFrom stringr str_sub str_detect
+#' @importFrom stringr str_detect
 #' @export
 #'
 #' @examples
@@ -48,17 +48,31 @@ is_lineage <- function(string){
 #' lineage2 <- "k__Bacteria|p__Firmicutes|c__Clostridia"
 #' is_rank(c(lineage1, lineage2), "class")
 #' is_rank(c(lineage1, lineage2), "order")
-is_rank <- function(lineage,
-                    rank = c("kingdom", "phylum", "class", "order",
-                             "family", "genus", "species", "strain")) {
+is_rank <- function(lineage, rank = yatah::all_ranks) {
 
   error_lineage(lineage)
 
   rank <- match.arg(rank)
-  letter <- ifelse(rank == "strain", "t", str_sub(rank, end = 1))
+  letter <- names(which(.ranks == rank))
 
   str_detect(lineage, paste0(letter, "__", .allchr, "*$"))
-  }
+}
+
+#' @rdname is_rank
+#' @export
+#' @examples
+#' is_at_least_rank(c(lineage1, lineage2), "phylum")
+#' is_at_least_rank(c(lineage1, lineage2), "order")
+is_at_least_rank <- function(lineage, rank = yatah::all_ranks) {
+
+  error_lineage(lineage)
+
+  rank <- match.arg(rank)
+  letter <- names(which(.ranks == rank))
+
+  str_detect(lineage, paste0(letter, "__", .allchr))
+
+}
 
 
 #' Test if a lineage belongs to a clade
@@ -78,8 +92,7 @@ is_rank <- function(lineage,
 #' is_clade(c(lineage1, lineage2), clade = "Verrucomicrobia", rank = "phylum")
 #' is_clade(c(lineage1, lineage2), clade = "Clostridia")
 is_clade <- function(lineage, clade,
-                     rank = c(".", "kingdom", "phylum", "class", "order",
-                              "family", "genus", "species", "strain")) {
+                     rank = c(".", yatah::all_ranks)) {
 
   error_lineage(lineage)
 

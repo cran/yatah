@@ -1,18 +1,13 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# yatah <a href='https://abichat.github.io/yatah'><img src='man/figures/logo.png' align="right" height="139" /></a>
+# yatah <a href='https://abichat.github.io/yatah/'><img src='man/figures/logo.png' align="right" height="139" /></a>
 
 <!-- badges: start -->
 
-[![license](https://img.shields.io/badge/license-GPL--3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.en.html)
-[![Lifecycle:
-stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
-[![packageversion](https://img.shields.io/badge/package%20version-0.2.1-orange.svg)](https://github.com/abichat/yatah/blob/master/DESCRIPTION)
+![packageversion](https://img.shields.io/badge/version-1.0.0-orange.svg)
+[![R-CMD-check](https://github.com/abichat/yatah/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/abichat/yatah/actions/workflows/R-CMD-check.yaml)
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/yatah)](https://cran.r-project.org/package=yatah)
-[![R-CMD-check](https://github.com/abichat/yatah/workflows/R-CMD-check/badge.svg)](https://github.com/abichat/yatah/actions)
-[![Documentation](https://img.shields.io/badge/documentation-pkgdown-E91E63.svg)](https://abichat.github.io/yatah/)
-[![last-commit](https://img.shields.io/github/last-commit/abichat/yatah.svg)](https://github.com/abichat/yatah/commits/master)
 <!-- badges: end -->
 
 The goal of **yatah** is to manage taxonomy when lineages are described
@@ -44,6 +39,16 @@ remotes::install_github("abichat/yatah")
 library(yatah)
 ```
 
+**yatah** handles 8 different ranks:
+
+``` r
+all_ranks
+#> [1] "kingdom" "phylum"  "class"   "order"   "family"  "genus"   "species" "strain"
+```
+
+A *lineage* is composed of a succession of clades separated by special
+characters indicating the current rank.
+
 ``` r
 lineages <- c(
   "k__Bacteria|p__Actinobacteria|c__Actinobacteria|o__Coriobacteriales",
@@ -58,46 +63,56 @@ lineages <- c(
 )
 ```
 
--   `is_rank()` checks if the lineages are of the desired rank.
+**yatah** offers functions to verify if lineages meet a desired
+property, to extract information, or to compute summary objects.
+
+- `is_rank()` and `is_at_least_rank()` check if the lineages are of the
+  desired rank.
 
 ``` r
 is_rank(lineages, rank = "order")
 #> [1] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
-is_rank(lineages, rank = "species")
+is_at_least_rank(lineages, rank = "species")
 #> [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
 ```
 
--   `is_clade()` checks if the lineages belong to the desired clade.
+- `is_clade()` checks if the lineages belong to the desired clade.
 
 ``` r
 is_clade(lineages, clade = "Proteobacteria", rank = "phylum")
 #> [1] FALSE FALSE FALSE FALSE FALSE FALSE  TRUE  TRUE  TRUE
 ```
 
--   `last_clade()` extracts the last clade of the lineages.
+- `get_clade()` extracts the clade of the desired rank.
 
 ``` r
-last_clade(lineages)
-#> [1] "Coriobacteriales"  "Bacteroidales"     "Flavobacteriales"  "Bacillales"       
-#> [5] "Lactobacillales"   "Clostridiales"     "Campylobacterales" "Enterobacteriales"
-#> [9] "Pseudomonadales"
+get_clade(lineages, rank = "class")
+#> [1] "Actinobacteria"        "Bacteroidia"           "Flavobacteriia"        "Bacilli"              
+#> [5] "Bacilli"               "Clostridia"            "Epsilonproteobacteria" "Gammaproteobacteria"  
+#> [9] "Gammaproteobacteria"
 ```
 
--   `all_clades()` extracts all clades of the lineages.
+- `get_last_clade()` extracts the last clade of the lineages.
 
 ``` r
-all_clades(lineages, simplify = TRUE)
-#>  [1] "Actinobacteria"        "Bacillales"            "Bacilli"              
-#>  [4] "Bacteria"              "Bacteroidales"         "Bacteroidetes"        
-#>  [7] "Bacteroidia"           "Campylobacterales"     "Clostridia"           
-#> [10] "Clostridiales"         "Coriobacteriales"      "Enterobacteriales"    
-#> [13] "Epsilonproteobacteria" "Firmicutes"            "Flavobacteriales"     
-#> [16] "Flavobacteriia"        "Gammaproteobacteria"   "Lactobacillales"      
-#> [19] "Proteobacteria"        "Pseudomonadales"
+get_last_clade(lineages)
+#> [1] "Coriobacteriales"  "Bacteroidales"     "Flavobacteriales"  "Bacillales"        "Lactobacillales"  
+#> [6] "Clostridiales"     "Campylobacterales" "Enterobacteriales" "Pseudomonadales"
 ```
 
--   `taxtable()` computes the taxonomic table corresponding to the
-    lineages.
+- `get_all_clades()` extracts all clades of the lineages.
+
+``` r
+get_all_clades(lineages, simplify = TRUE)
+#>  [1] "Actinobacteria"        "Bacillales"            "Bacilli"               "Bacteria"             
+#>  [5] "Bacteroidales"         "Bacteroidetes"         "Bacteroidia"           "Campylobacterales"    
+#>  [9] "Clostridia"            "Clostridiales"         "Coriobacteriales"      "Enterobacteriales"    
+#> [13] "Epsilonproteobacteria" "Firmicutes"            "Flavobacteriales"      "Flavobacteriia"       
+#> [17] "Gammaproteobacteria"   "Lactobacillales"       "Proteobacteria"        "Pseudomonadales"
+```
+
+- `taxtable()` computes the taxonomic table corresponding to the
+  lineages.
 
 ``` r
 table <- taxtable(lineages)
@@ -114,8 +129,8 @@ table
 #> 9 Bacteria Proteobacteria   Gammaproteobacteria   Pseudomonadales
 ```
 
--   `taxtree()` computes the taxonomic tree (format `phylo`) from a
-    taxonomic table.
+- `taxtree()` computes the taxonomic tree (format `phylo`) from a
+  taxonomic table.
 
 ``` r
 tree <- taxtree(table)

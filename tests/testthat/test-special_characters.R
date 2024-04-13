@@ -22,15 +22,15 @@ test_that("is_* functions can handle special charachters", {
 
 
 test_that("extractions functions can handle special charachters", {
-  expect_equal(last_clade(lin),
+  expect_equal(get_last_clade(lin),
                c("Ddd", "Ddd0123456789", "Eee-e", "Eee", "Fff_f", "Ii.i",
                  "J...jj", "Lll[l]", "Kk0._]_[._-k"))
-  expect_equal(last_rank(lin), rep("order", len))
-  expect_equal(all_clades(lin),
+  expect_equal(get_last_rank(lin), rep("order", len))
+  expect_equal(get_all_clades(lin),
                c("Aaa", "Bb_b", "Bbb", "Cc-c", "Ccc", "Ddd",
                  "Ddd0123456789", "Eee", "Eee-e", "Ff_f", "Fff_f", "H.hh",
                  "Ii.i", "J...jj", "K[kk]k", "Kk0._]_[._-k", "Lll[l]"))
-  expect_equal(all_clades(lin, simplify = FALSE)$clade,
+  expect_equal(get_all_clades(lin, simplify = FALSE)$clade,
                c("Aaa", "Bb_b", "Bbb", "Cc-c", "Ccc", "Ccc", "Ddd", "Ddd",
                  "Ddd0123456789", "Eee", "Eee-e", "Ff_f", "Fff_f", "H.hh",
                  "Ii.i", "J...jj", "K[kk]k", "Kk0._]_[._-k", "Lll[l]"))
@@ -49,8 +49,8 @@ test_that("trim functions can handle special charachters", {
 })
 
 table <- taxtable(lin)
-orders <- sort(unique(last_clade(lin))) # ok bc no duplicated order names
-clades <- all_clades(lin)
+orders <- sort(unique(get_last_clade(lin))) # ok bc no duplicated order names
+clades <- get_all_clades(lin)
 
 
 test_that("taxtable can handle special charachters", {

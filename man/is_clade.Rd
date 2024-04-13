@@ -4,12 +4,7 @@
 \alias{is_clade}
 \title{Test if a lineage belongs to a clade}
 \usage{
-is_clade(
-  lineage,
-  clade,
-  rank = c(".", "kingdom", "phylum", "class", "order", "family", "genus", "species",
-    "strain")
-)
+is_clade(lineage, clade, rank = c(".", yatah::all_ranks))
 }
 \arguments{
 \item{lineage}{string. Vector of lineages.}

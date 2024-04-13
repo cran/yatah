@@ -54,11 +54,13 @@ test_that("error_lineage() is correct", {
 #### all functions
 
 test_that("errors are thrown with bad lineages", {
-  expect_error(all_clades(c(lineage5, badlin2)), errorbadlin)
+  expect_error(get_all_clades(c(lineage5, badlin2)), errorbadlin)
   expect_error(is_clade(c(lineage5, badlin2), "Bac"), errorbadlin)
   expect_error(is_rank(c(lineage5, badlin2), "family"), errorbadlin)
-  expect_error(last_clade(c(lineage5, badlin2)), errorbadlin)
-  expect_error(last_rank(c(lineage5, badlin2)), errorbadlin)
+  expect_error(is_at_least_rank(c(lineage5, badlin2), "family"), errorbadlin)
+  expect_error(get_last_clade(c(lineage5, badlin2)), errorbadlin)
+  expect_error(get_last_rank(c(lineage5, badlin2)), errorbadlin)
+  expect_error(get_clade(c(lineage5, badlin2), "order"), errorbadlin)
   expect_error(taxtable(c(lineage5, badlin2)), errorbadlin)
 })
 

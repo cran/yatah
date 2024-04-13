@@ -1,7 +1,7 @@
 #' Extract the last clade of a lineage
 #'
 #' @inheritParams is_rank
-#' @param same logical. Does the lineage have the same depth? Default to TRUE.
+#' @param same logical. Does the lineage have the same depth? Default to `TRUE`.
 #'
 #' @return A string. The last clades of the given lineages.
 #' @importFrom stringr str_remove
@@ -10,8 +10,8 @@
 #' @examples
 #' lineage1 <- "k__Bacteria|p__Verrucomicrobia|c__Verrucomicrobiae"
 #' lineage2 <- "k__Bacteria|p__Firmicutes|c__Clostridia"
-#' last_clade(c(lineage1, lineage2))
-last_clade <- function(lineage, same = TRUE) {
+#' get_last_clade(c(lineage1, lineage2))
+get_last_clade <- function(lineage, same = TRUE) {
 
   error_lineage(lineage)
 
@@ -20,10 +20,41 @@ last_clade <- function(lineage, same = TRUE) {
   str_remove(lineage, ".*__")
 }
 
+#' Extract the clade of a desired rank in a lineage
+#'
+#' @inheritParams get_last_clade
+#' @param rank The desired rank of the clade.
+#'
+#' @return A string.
+#'
+#' @importFrom stringr str_extract str_remove_all
+#' @export
+#'
+#' @examples
+#' lineage1 <- "k__Bacteria|p__Verrucomicrobia|c__Verrucomicrobiae"
+#' lineage2 <- "k__Bacteria|p__Firmicutes|c__Clostridia"
+#' get_clade(c(lineage1, lineage2), "phylum")
+get_clade <- function(lineage, rank = yatah::all_ranks, same = TRUE) {
+
+  error_lineage(lineage)
+
+  if (same) depth(lineage)
+
+  rank <- match.arg(rank)
+  letter <- names(which(.ranks == rank))
+
+  sep <- getOption("yatah_sep", default = "\\|")
+
+  str_remove_all(
+    str_extract(lineage, paste0("(?<=", letter, "__).*")),
+    paste0(sep, ".*")
+    )
+}
+
 
 #' Extract the last rank of a lineage
 #'
-#' @inheritParams last_clade
+#' @inheritParams get_last_clade
 #'
 #' @return A string. The last rank of the given lineages.
 #' @importFrom stringr str_remove
@@ -32,8 +63,8 @@ last_clade <- function(lineage, same = TRUE) {
 #' @examples
 #' lineage1 <- "k__Bacteria|p__Verrucomicrobia|c__Verrucomicrobiae"
 #' lineage2 <- "k__Bacteria|p__Firmicutes|c__Clostridia"
-#' last_rank(c(lineage1, lineage2))
-last_rank <- function(lineage, same = TRUE) {
+#' get_last_rank(c(lineage1, lineage2))
+get_last_rank <- function(lineage, same = TRUE) {
 
   error_lineage(lineage)
 
@@ -54,7 +85,7 @@ last_rank <- function(lineage, same = TRUE) {
 #' clades with same name and same rank when \code{simplify} is set to
 #' \code{FALSE}.
 #'
-#' @inheritParams last_clade
+#' @inheritParams get_last_clade
 #' @param simplify logical. Should the output be a vector or a dataframe?
 #'
 #' @return The clades present in the lineage. Vector of ordered strings
@@ -66,9 +97,9 @@ last_rank <- function(lineage, same = TRUE) {
 #' lineage1 <- "k__Bacteria|p__Verrucomicrobia|c__Verrucomicrobiae"
 #' lineage2 <- "k__Bacteria|p__Firmicutes|c__Clostridia"
 #' lineage3 <- "k__Bacteria|p__Actinobacteria|c__Actinobacteria"
-#' all_clades(c(lineage1, lineage2, lineage3))
-#' all_clades(c(lineage1, lineage2, lineage3), simplify = FALSE)
-all_clades <- function(lineage, simplify = TRUE) {
+#' get_all_clades(c(lineage1, lineage2, lineage3))
+#' get_all_clades(c(lineage1, lineage2, lineage3), simplify = FALSE)
+get_all_clades <- function(lineage, simplify = TRUE) {
 
   error_lineage(lineage)
 

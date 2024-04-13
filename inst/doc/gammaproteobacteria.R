@@ -1,4 +1,4 @@
-## ---- include = FALSE---------------------------------------------------------
+## ----include = FALSE----------------------------------------------------------
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
@@ -21,7 +21,7 @@ gammap_genus <-
   taxonomy %>% 
   filter(is_clade(lineages, "Gammaproteobacteria"),
          is_rank(lineages, "genus")) %>% 
-  mutate(genus = last_clade(lineages))
+  mutate(genus = get_last_clade(lineages))
 gammap_genus
 
 ## ----table--------------------------------------------------------------------
